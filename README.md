@@ -11,7 +11,9 @@ The objective of this project is to develop a method for compensating for spring
 To accomplish this goal, we used CATIA V5 and the "vedo" Python package to optimize the 3D model of the component. We then built FEM simulation with AutoForm to predict the springback behavior of the material. We used 'vedo' and 'trimesh' to preprocess the mesh model and generate a compensated CAD model using B-Spline Approximation.
 
 We calculated the shape deviation between the FEM result and the target component using the control points of B-spline, and then compensated for this deviation iteratively with an appropriate algorithm. We also created an interactive tool using "vedo" to identify deviations in component sections, providing an automated workflow process to improve productivity.
-![Section](workflow.svg "Workflow" width="300" height="auto")
+<div align="center">
+  <img src="(https://github.com/Kevoyuan/SpringbackCompensation/blob/master/workflow.svg)" width="300" height="auto">
+</div>
 
 # Conclusion:
 This project demonstrates a successful method for compensating for springback in deep drawn components using reverse engineering and FEM simulation. By using this approach, we were able to achieve the desired shape of the component despite excessive spring back after deep drawing. This method can be used to improve the precision and accuracy of deep drawn components, and can be easily integrated into existing manufacturing processes to improve productivity.
