@@ -12,7 +12,7 @@ To accomplish this goal, we used CATIA V5 and the "vedo" Python package to optim
 
 We calculated the shape deviation between the FEM result and the target component using the control points of B-spline, and then compensated for this deviation iteratively with an appropriate algorithm. We also created an interactive tool using "vedo" to identify deviations in component sections, providing an automated workflow process to improve productivity.
 <div align="center">
-  <img src="https://github.com/Kevoyuan/SpringbackCompensation/blob/master/workflow.svg" width="500" height="auto">
+  <img src="https://github.com/Kevoyuan/SpringbackCompensation/blob/master/workflow.png" width="500" height="auto">
 </div>
 
 # Conclusion:
