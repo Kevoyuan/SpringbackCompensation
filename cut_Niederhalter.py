@@ -1,4 +1,4 @@
-from vedo import *
+from vedo import Mesh, Axes, Plotter
 
 Blechhalter = Mesh("test/Blechhalter.stl").c('yellow')
 

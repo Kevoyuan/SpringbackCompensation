@@ -1,9 +1,9 @@
 from vedo import *
 from vedo.pyplot import plot
 
-settings.useDepthPeeling = True
+# settings.useDepthPeeling = True
 
-settings.immediateRendering = False
+# settings.immediateRendering = False
 
 
 def slider(widget, event):
@@ -11,12 +11,13 @@ def slider(widget, event):
     pl.x(cutx)
 
     # Intersection
-    targetSection = target_mesh.intersectWith(pl).join(reset=True)
-    simulatedSection = mean_simulated_mesh.intersectWith(pl).join(reset=True)
+    targetSection = target_mesh.intersect_with(pl).join(reset=True)
+    simulatedSection = mean_simulated_mesh.intersect_with(pl).join(reset=True)
     # targetSection.lineWidth(1).c('red')
 
     # 1st render
-    plt.remove(pl, at=0).add(pl, at=0, render=False)
+    plt.remove(pl, at=0).add(pl, at=0)
+
     # objs[0] = pl
 
     # 2nd render
@@ -51,7 +52,7 @@ def slider(widget, event):
 
 # load target mesh
 target_mesh = Mesh('data/targets/target_AF_bs.stl')
-target_mesh.cutWithBox([-78, 308, -71, 65, -1000, 1000]).bc("silver")
+target_mesh.cut_with_box([-78, 308, -71, 65, -1000, 1000]).bc("silver")
 ax = Axes(target_mesh)
 txt = Text2D(font='Calco', bg='yellow')
 
@@ -62,13 +63,13 @@ mean_simulated_mesh = Mesh('test/meanSimulatedMesh.stl').bc('yellow')
 # alignedMesh = Mesh("data/targets/compensatedsurface_mean_simulated_0_8_i0.stp")
 
 objs = [None, None, None]  # empty placeholders
-pl = Grid(resx=1, resy=1, sx=100, sy=200).triangulate()
-pl.rotateY(90).z(-30)
+pl = Grid(s=(100, 200), res=(1, 1)).triangulate()
+pl.rotate_y(90).z(-30)
 pl.c('green').alpha(0.4).wireframe(0).lw(0)
 
 # declare the instance of the class
 plt = Plotter(shape=(1, 2), sharecam=0, interactive=0, size=[1200, 500], bg="white")
-plt.addSlider2D(slider,
+plt.add_slider(slider,
                 -77, 307,
                 value=-77,
                 pos="bottom-left",

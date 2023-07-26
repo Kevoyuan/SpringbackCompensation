@@ -9,12 +9,13 @@ from pathlib import Path
 class Mesh2Grid:
     def __init__(self, alignedmesh, numdivisionsv, numdivisionsu):
         self.alignedmesh = alignedmesh
-        self.alignedmeshvertices = alignedmesh.vertices()
+        self.alignedmeshvertices = alignedmesh.points()  # Changed from .points() to .points()
         self.alignedmeshfaces = alignedmesh.faces()
         self.alignedtrimesh = trimesh.Trimesh(self.alignedmeshvertices, self.alignedmeshfaces, process=False)
         self.cellnormals = alignedmesh.normals(cells=True)
         self.edges = self.alignedtrimesh.edges_unique
         self.graph = defaultdict(list)
+        self.gridpoints = []
         for edge in self.edges:
             self.addedge(edge[0], edge[1])
 
@@ -28,10 +29,10 @@ class Mesh2Grid:
         self.bordergeodesic3 = alignedmesh.geodesic(point1, point3)
         self.bordergeodesic4 = alignedmesh.geodesic(point2, point4)
 
-        border1points = self.bordergeodesic1.vertices()  # u
-        border2points = self.bordergeodesic2.vertices()  # u
-        border3points = self.bordergeodesic3.vertices()  # v
-        border4points = self.bordergeodesic4.vertices()  # v
+        border1points = self.bordergeodesic1.points()  # u
+        border2points = self.bordergeodesic2.points()  # u
+        border3points = self.bordergeodesic3.points()  # v
+        border4points = self.bordergeodesic4.points()  # v
         self.borderbspline1 = fitting.approximate_curve(border1points.tolist(), 3, ctrlpts_size=40)
         self.borderbspline2 = fitting.approximate_curve(border2points.tolist(), 3, ctrlpts_size=40)
         self.borderbspline3 = fitting.approximate_curve(border3points.tolist(), 3, ctrlpts_size=100)
@@ -82,7 +83,7 @@ class Mesh2Grid:
         facepoints = np.empty((0, 3))  # contains face points not on border as a list
         for i in range(len(initisocurvesv)):
             for j in range(len(initisocurvesu)):
-                intersection = self.findintersections(initisocurvesv[i].vertices(), initisocurvesu[j].vertices())
+                intersection = self.findintersections(initisocurvesv[i].points(), initisocurvesu[j].points())
                 facepoints = np.append(facepoints, [intersection[0]], axis=0)
                 facepointsmatrix[j + 1][numsamplesv - i] = intersection[0]
 
